@@ -1,0 +1,52 @@
+syntax = "proto3";
+package common;
+
+message Message {
+    enum MsgType {
+        VAL = 0;
+        BVAL = 1;
+        PROM = 2;
+        AUX = 3;
+        CONF = 4;
+        COIN = 5;
+        PROMQC = 6;
+        PAYLOAD = 7;
+        VOTEZERO = 8;
+        ENDORSE = 9;
+    }
+    uint32 seq = 1;
+    uint32 from = 2;
+    uint32 round = 3;
+    uint32 sender = 4;
+    MsgType type = 5;
+    string hash = 6;
+    bytes payload = 7;
+    uint32 totalPayloadNum = 8;
+    uint32 payloadSlice = 9;
+    bytes signature = 10;
+}
+
+message Signature {
+    bytes sig = 1;
+    uint32 id = 2;
+}
+
+message QC {
+    string hash = 1;
+    repeated Signature sigs = 2;
+}
+
+message ClientReq {
+    int32 startId = 1;
+    int32 reqNum = 2;
+    bytes payload = 3;
+    int64 id = 4;
+}
+
+message ClientResp {
+
+}
+
+message Batch {
+    repeated  ClientReq reqs = 1;
+}
